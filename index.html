@@ -16,7 +16,8 @@
 
         label { color: blue }
 
-        input#text { width: 100%; box-sizing: border-box; font-size: 16px }
+        input#text { width: 100%; box-sizing: border-box; font-size: 16px; margin-bottom: 10px }
+        input[type=range] { width: 100px }
 
         canvas { box-sizing: border-box; width: 100%; border: 1px dashed #AAA; cursor: pointer }
     </style>
@@ -29,8 +30,22 @@
         <p><input type="file" id="image"></p>
 
         
-        <label for="text">第二步：输入需要打的文字</label>
-        <p><input type="text" id="text" placeholder="请输入文字" maxlength="30"></p>
+        <label for="text">第二步：输入需要打水印的文字</label>
+        <p><input type="text" id="text" placeholder="请输入文字" maxlength="30">
+        
+        <label for="color">颜色</label>
+        <input type="color" id="color" pattern="#[0-9A-Fa-f]{6}" value="#0000FF">
+        
+        &nbsp;&nbsp;
+        
+        <label for="alpha">透明度</label>
+        <input type="range" id="alpha" min="0" max="1" step="0.05" value="0.15">
+        
+        &nbsp;&nbsp;
+        
+        <label for="space">间隔</label>
+        <input type="range" id="space" min="1" max="8" step="0.2" value="4">
+        </p>
         
         <label for="text">第三步：点击图片下载</label>
         <p id="graph"></p>

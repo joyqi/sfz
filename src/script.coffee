@@ -1,12 +1,19 @@
 $ = (sel) -> document.querySelector sel
 
-image = $ '#image'
-input = $ '#text'
-graph = $ '#graph'
+el =
+    image: $ '#image'
+    text: $ '#text'
+    graph: $ '#graph'
+    color: $ '#color'
+    alpha: $ '#alpha'
+    space: $ '#space'
 
 file = null
 canvas = null
-text = ''
+text = el.text.value
+color = el.color.value
+alpha = el.alpha.value
+space = el.space.value
 textCtx = null
 redraw = null
 
@@ -44,8 +51,8 @@ readFile = ->
             
             drawText()
 
-            graph.innerHTML = ''
-            graph.appendChild canvas
+            el.graph.innerHTML = ''
+            el.graph.appendChild canvas
 
             canvas.addEventListener 'click', ->
                 link = document.createElement 'a'
@@ -63,6 +70,13 @@ readFile = ->
         img.src = fileReader.result
 
     fileReader.readAsDataURL file
+    
+
+makeStyle = ->
+    match = color.match /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i
+
+    'rgba(' + (parseInt match[1], 16) + ',' + (parseInt match[2], 16) + ',' \
+         + (parseInt match[3], 16) + ',' + alpha + ')'
 
 
 drawText = ->
@@ -73,30 +87,42 @@ drawText = ->
         redraw()
     else
         textCtx = canvas.getContext '2d'
-        textCtx.fillStyle = 'rgba(0, 0, 255, 0.15)'
         textCtx.font = 'bold ' + textSize + 'px -apple-system,"Helvetica Neue",Helvetica,Arial,"PingFang SC","Hiragino Sans GB","WenQuanYi Micro Hei","Microsoft Yahei",sans-serif'
         textCtx.rotate 45 * Math.PI / 180
     
+    textCtx.fillStyle = makeStyle()
     width = (textCtx.measureText text).width
     step = Math.sqrt (Math.pow canvas.width, 2) + (Math.pow canvas.height, 2)
     margin = (textCtx.measureText '啊').width
 
     x = Math.ceil step / (width + margin)
-    y = Math.ceil (step / (4 * textSize)) / 2
+    y = Math.ceil (step / (space * textSize)) / 2
 
     for i in [0..x]
         for j in [-y..y]
-            textCtx.fillText text, (width + margin) * i, 4 * textSize * j
+            textCtx.fillText text, (width + margin) * i, space * textSize * j
     return
 
 
-image.addEventListener 'change', ->
+el.image.addEventListener 'change', ->
     file = @files[0]
 
     return alert '仅支持 png, jpg, gif 图片格式' if file.type not in ['image/png', 'image/jpeg', 'image.gif']
     readFile()
 
-input.addEventListener 'input', ->
+el.text.addEventListener 'input', ->
     text = @value
+    drawText()
+
+el.alpha.addEventListener 'input', ->
+    alpha = @value
+    drawText()
+
+el.color.addEventListener 'input', ->
+    color = @value
+    drawText()
+
+el.space.addEventListener 'input', ->
+    space = @value
     drawText()
 
