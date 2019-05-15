@@ -10,6 +10,16 @@ text = ''
 textCtx = null
 redraw = null
 
+dataURItoBlob = (dataURI) ->
+    binStr = atob (dataURI.split ',')[1]
+    len = binStr.length
+    arr = new Uint8Array len
+
+    for i in [0..len - 1]
+        arr[i] = binStr.charCodeAt i
+    new Blob [arr], type: 'image/png'
+
+
 readFile = ->
     return if not file?
 
@@ -35,12 +45,18 @@ readFile = ->
             drawText()
 
             graph.innerHTML = ''
-            link = ''
             graph.appendChild canvas
 
             canvas.addEventListener 'click', ->
-                graph.href = canvas.toDataURL 'image/png', 1.0
-                    .replace 'image/png', 'image/octet-stream'
+                link = document.createElement 'a'
+                link.download = 'image.png'
+                imageData = canvas.toDataURL 'image/png'
+                blob = dataURItoBlob imageData
+                link.href = URL.createObjectURL blob
+
+                setTimeout ->
+                    link.click()
+                , 100
                 
 
 

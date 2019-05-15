@@ -9,17 +9,20 @@
             margin: 30px auto;
         }
 
-        h1, p { margin: 0 0 20px 0 }
+        h1 { margin: 0 }
+        p, article { margin: 0 0 20px 0 }
+        article { font-size: 14px; color: #777 }
 
         label { color: blue }
 
         input#text { width: 100%; box-sizing: border-box; font-size: 16px }
 
-        canvas { box-sizing: border-box; width: 100%; border: 1px dashed #AAA }
+        canvas { box-sizing: border-box; width: 100%; border: 1px dashed #AAA; cursor: pointer }
     </style>
 </head>
     <div id="container">
         <h1>身份证打码工具</h1>
+        <article>安全地为你的敏感证件打码，无任何网络请求。<a href="https://github.com/joyqi/sfz">Github地址</a></article>
 
         <label for="image">第一步：先选择一张本地图片</label>
         <p><input type="file" id="image"></p>
@@ -29,7 +32,7 @@
         <p><input type="text" id="text" placeholder="请输入文字" maxlength="30"></p>
         
         <label for="text">第三步：点击图片下载</label>
-        <p><a id="graph" href="#" download="image.png"></a></p>
+        <p id="graph"></p>
     </div>
     <script src="./build/script.js"></script>
 </html>
