@@ -1,19 +1,12 @@
 $ = (sel) -> document.querySelector sel
 
-el =
-    image: $ '#image'
-    text: $ '#text'
-    graph: $ '#graph'
-    color: $ '#color'
-    alpha: $ '#alpha'
-    space: $ '#space'
+inputItems = ['text', 'color', 'alpha', 'space', 'size']
+input = {}
 
+image = $ '#image'
+graph = $ '#graph'
 file = null
 canvas = null
-text = el.text.value
-color = el.color.value
-alpha = el.alpha.value
-space = el.space.value
 textCtx = null
 redraw = null
 
@@ -25,6 +18,14 @@ dataURItoBlob = (dataURI) ->
     for i in [0..len - 1]
         arr[i] = binStr.charCodeAt i
     new Blob [arr], type: 'image/png'
+
+
+generateFileName = ->
+    pad = (n) -> if n < 10 then '0' + n else n
+
+    d = new Date
+    '' + d.getFullYear() + '-' + (pad d.getMonth() + 1) + '-' + (pad d.getDate()) + ' ' + \
+        (pad d.getHours()) + (pad d.getMinutes()) + (pad d.getSeconds()) + '.png'
 
 
 readFile = ->
@@ -51,12 +52,12 @@ readFile = ->
             
             drawText()
 
-            el.graph.innerHTML = ''
-            el.graph.appendChild canvas
+            graph.innerHTML = ''
+            graph.appendChild canvas
 
             canvas.addEventListener 'click', ->
                 link = document.createElement 'a'
-                link.download = 'image.png'
+                link.download = generateFileName()
                 imageData = canvas.toDataURL 'image/png'
                 blob = dataURItoBlob imageData
                 link.href = URL.createObjectURL blob
@@ -73,56 +74,48 @@ readFile = ->
     
 
 makeStyle = ->
-    match = color.match /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i
+    match = input.color.value.match /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i
 
     'rgba(' + (parseInt match[1], 16) + ',' + (parseInt match[2], 16) + ',' \
-         + (parseInt match[3], 16) + ',' + alpha + ')'
+         + (parseInt match[3], 16) + ',' + input.alpha.value + ')'
 
 
 drawText = ->
-    return if not canvas? or text.length is 0
-    textSize = Math.max 15, (Math.min canvas.width, canvas.height) / 25
+    return if not canvas?
+    textSize = input.size.value * Math.max 15, (Math.min canvas.width, canvas.height) / 25
     
     if textCtx?
         redraw()
     else
         textCtx = canvas.getContext '2d'
-        textCtx.font = 'bold ' + textSize + 'px -apple-system,"Helvetica Neue",Helvetica,Arial,"PingFang SC","Hiragino Sans GB","WenQuanYi Micro Hei","Microsoft Yahei",sans-serif'
         textCtx.rotate 45 * Math.PI / 180
     
     textCtx.fillStyle = makeStyle()
-    width = (textCtx.measureText text).width
+    textCtx.font = 'bold ' + textSize + 'px -apple-system,"Helvetica Neue",Helvetica,Arial,"PingFang SC","Hiragino Sans GB","WenQuanYi Micro Hei","Microsoft Yahei",sans-serif'
+    
+    width = (textCtx.measureText input.text.value).width
     step = Math.sqrt (Math.pow canvas.width, 2) + (Math.pow canvas.height, 2)
     margin = (textCtx.measureText '啊').width
 
     x = Math.ceil step / (width + margin)
-    y = Math.ceil (step / (space * textSize)) / 2
+    y = Math.ceil (step / (input.space.value * textSize)) / 2
 
     for i in [0..x]
         for j in [-y..y]
-            textCtx.fillText text, (width + margin) * i, space * textSize * j
+            textCtx.fillText input.text.value, (width + margin) * i, input.space.value * textSize * j
     return
 
 
-el.image.addEventListener 'change', ->
+image.addEventListener 'change', ->
     file = @files[0]
 
     return alert '仅支持 png, jpg, gif 图片格式' if file.type not in ['image/png', 'image/jpeg', 'image/gif']
     readFile()
 
-el.text.addEventListener 'input', ->
-    text = @value
-    drawText()
 
-el.alpha.addEventListener 'input', ->
-    alpha = @value
-    drawText()
-
-el.color.addEventListener 'input', ->
-    color = @value
-    drawText()
-
-el.space.addEventListener 'input', ->
-    space = @value
-    drawText()
+inputItems.forEach (item) ->
+    el = $ '#' + item
+    input[item] = el
+    
+    el.addEventListener 'input', drawText
 

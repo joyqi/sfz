@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
-    <title>身份证水印打码工具</title>
+    <title>图片水印打码工具</title>
     <style>
         #container {
             max-width: 500px;
@@ -14,17 +14,19 @@
         p, article { margin: 0 0 20px 0 }
         article { font-size: 14px; color: #777 }
 
-        label { color: blue }
+        label { color: blue; font-size: 17px }
+        p label { color: black; display: inline-block; width: 50px; font-size: 15px }
+        p { font-size: 15px; line-height: 30px }
 
         input#text { width: 100%; box-sizing: border-box; font-size: 16px; margin-bottom: 10px }
-        input[type=range] { width: 80px }
+        input[type=range] { width: 200px }
 
         canvas { box-sizing: border-box; width: 100%; border: 1px dashed #AAA; cursor: pointer }
     </style>
 </head>
     <div id="container">
-        <h1>身份证水印打码工具</h1>
-        <article>安全地为你的敏感证件加水印，无任何网络请求。<a href="https://github.com/joyqi/sfz">Github地址</a></article>
+        <h1>图片水印打码工具</h1>
+        <article>安全地为你的图片加水印，无任何网络请求，特别适合各种敏感证件（身份证，驾照，护照等）。<a href="https://github.com/joyqi/sfz">Github地址</a></article>
 
         <label for="image">第一步：先选择一张本地图片</label>
         <p><input type="file" id="image"></p>
@@ -34,17 +36,16 @@
         <p><input type="text" id="text" placeholder="请输入文字" maxlength="30">
         
         <label for="color">颜色</label>
-        <input type="color" id="color" pattern="#[0-9A-Fa-f]{6}" value="#0000FF">
-        
-        &nbsp;&nbsp;
+        <input type="color" id="color" pattern="#[0-9A-Fa-f]{6}" value="#0000FF"><br>
         
         <label for="alpha">透明度</label>
-        <input type="range" id="alpha" min="0" max="1" step="0.05" value="0.15">
-        
-        &nbsp;&nbsp;
+        <input type="range" id="alpha" min="0" max="1" step="0.05" value="0.15"><br>
         
         <label for="space">间隔</label>
-        <input type="range" id="space" min="1" max="8" step="0.2" value="4">
+        <input type="range" id="space" min="1" max="8" step="0.2" value="4"><br>
+        
+        <label for="size">字号</label>
+        <input type="range" id="size" min="0.5" max="3" step="0.05" value="1">
         </p>
         
         <label for="text">第三步：点击图片下载</label>
