@@ -107,7 +107,7 @@ drawText = ->
 el.image.addEventListener 'change', ->
     file = @files[0]
 
-    return alert '仅支持 png, jpg, gif 图片格式' if file.type not in ['image/png', 'image/jpeg', 'image.gif']
+    return alert '仅支持 png, jpg, gif 图片格式' if file.type not in ['image/png', 'image/jpeg', 'image/gif']
     readFile()
 
 el.text.addEventListener 'input', ->
