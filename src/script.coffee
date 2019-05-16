@@ -91,7 +91,7 @@ drawText = ->
         textCtx.rotate 45 * Math.PI / 180
     
     textCtx.fillStyle = makeStyle()
-    textCtx.font = 'bold ' + textSize + 'px -apple-system,"Helvetica Neue",Helvetica,Arial,"PingFang SC","Hiragino Sans GB","WenQuanYi Micro Hei","Microsoft Yahei",sans-serif'
+    textCtx.font = 'bold ' + textSize + 'px -apple-system,"Helvetica Neue",Helvetica,Arial,"PingFang SC","Hiragino Sans GB","WenQuanYi Micro Hei",sans-serif'
     
     width = (textCtx.measureText input.text.value).width
     step = Math.sqrt (Math.pow canvas.width, 2) + (Math.pow canvas.height, 2)
