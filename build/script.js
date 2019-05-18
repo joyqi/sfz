@@ -81,8 +81,10 @@
           imageData = canvas.toDataURL('image/png');
           blob = dataURItoBlob(imageData);
           link.href = URL.createObjectURL(blob);
+          graph.appendChild(link);
           return setTimeout(function() {
-            return link.click();
+            link.click();
+            return graph.removeChild(link);
           }, 100);
         });
       };

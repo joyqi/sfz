@@ -61,9 +61,11 @@ readFile = ->
                 imageData = canvas.toDataURL 'image/png'
                 blob = dataURItoBlob imageData
                 link.href = URL.createObjectURL blob
+                graph.appendChild link
 
                 setTimeout ->
                     link.click()
+                    graph.removeChild link
                 , 100
                 
 

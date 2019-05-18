@@ -19,7 +19,7 @@
         p { font-size: 15px; line-height: 30px }
 
         input#text { width: 100%; box-sizing: border-box; font-size: 16px; margin-bottom: 10px }
-        input[type=range] { width: 200px }
+        input[type=range] { width: 200px; height: 18px; vertical-align: text-bottom }
 
         canvas { box-sizing: border-box; width: 100%; border: 1px dashed #AAA; cursor: pointer }
     </style>
@@ -29,23 +29,23 @@
         <article>安全地为你的图片加水印，无任何网络请求，特别适合各种敏感证件（身份证，驾照，护照等）。<a href="https://github.com/joyqi/sfz">Github地址</a></article>
 
         <label for="image">第一步：先选择一张本地图片</label>
-        <p><input type="file" id="image"></p>
+        <p><input type="file" id="image" autocomplete="off"></p>
 
         
         <label for="text">第二步：输入需要打水印的文字</label>
-        <p><input type="text" id="text" placeholder="请输入文字" maxlength="30">
+        <p><input type="text" id="text" placeholder="请输入文字" autocomplete="off" maxlength="30">
         
         <label for="color">颜色</label>
-        <input type="color" id="color" pattern="#[0-9A-Fa-f]{6}" value="#0000FF"><br>
+        <input type="color" id="color" pattern="#[0-9A-Fa-f]{6}" autocomplete="off" value="#0000FF"><br>
         
         <label for="alpha">透明度</label>
-        <input type="range" id="alpha" min="0" max="1" step="0.05" value="0.15"><br>
+        <input type="range" id="alpha" min="0" max="1" step="0.05" autocomplete="off" value="0.15"><br>
         
         <label for="space">间隔</label>
-        <input type="range" id="space" min="1" max="8" step="0.2" value="4"><br>
+        <input type="range" id="space" min="1" max="8" step="0.2" autocomplete="off" value="4"><br>
         
         <label for="size">字号</label>
-        <input type="range" id="size" min="0.5" max="3" step="0.05" value="1">
+        <input type="range" id="size" min="0.5" max="3" step="0.05" autocomplete="off" value="1">
         </p>
         
         <label for="text">第三步：点击图片下载</label>
