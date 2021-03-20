@@ -15,6 +15,7 @@
                canvas { box-sizing: border-box; width: 100%; border: 1px dashed #AAA; cursor: pointer }
                #container {max-width: 500px; margin: 30px auto;}
                p { line-height: 140%; margin: 16px 0 24px; font-size: 14px; }
+               input[type=range] { width: 200px; height: 18px; vertical-align: text-bottom }
           </style>
           <body>
           <form class="login-form">
@@ -32,7 +33,6 @@
         <input type="text" name="text" placeholder=" " autocomplete="off" id="text" class="form-control-material" />
         <label for="text">第二步：在此输入需要打印的文字</label>
       </div>
-        
         <label for="color">颜色</label>
         <input type="color" id="color" pattern="#[0-9A-Fa-f]{6}" autocomplete="off" value="#0000FF"><br>
         
@@ -53,6 +53,5 @@
         <script src="./build/script.js"></script>
          </form>
          </body> 
-  <footer href="https://github.com/joyqi/sfz" style="position: fixed; bottom: 0; width:100%; text-align: center"><img src="https://cdn.jsdelivr.net/gh/Closty/duanwangzhi/github.png" style="width:50px;"> </footer>
-
+  <a href="https://github.com/joyqi/sfz" style="position: absolute; bottom: 0; width:100%; text-align: center"><img src="https://cdn.jsdelivr.net/gh/Closty/duanwangzhi/github.png" style="width:50px;"> <a/>
 </html>
