@@ -4,52 +4,63 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
     <title>图片水印打码工具</title>
-    <style>
-        #container {
-            max-width: 500px;
-            margin: 30px auto;
-        }
+          <link rel='stylesheet' href='https://cdn.jsdelivr.net/gh/closty/aqua.css@master/dist/aqua.min.css'>
+          <style>
+                body1 {  display: flex;  justify-content: center;  align-items: center;  min-height: 20vh;  background: #FFF;}
+               .form-input-material {  --input-default-border-color: #333333;  --input-border-bottom-color: #333333; }
+               .form-input-material input {  color: #333333;}
+               .input-form {  display: flex;  flex-direction: column;  align-items: center;  padding: 50px 40px;  color: #333333;  background: #ffcc00;  border-radius: 20px;  }
+               .input-form h1 {  margin: 0 0 24px 0;}
+               .input-form .form-input-material {  margin: 12px 0;}
+               .form-control-range{--range-thumb-border-color: #C0C0C0;}
+               canvas { box-sizing: border-box; width: 100%; border: 1px dashed #AAA; cursor: pointer }
+               #container {max-width: 500px; margin: 30px auto;}
+               p label { color: black; display: inline-block; width: 75px; font-size: 15px ; }
+               p { line-height: 140%; margin: 16px 0 24px; font-size: 14px; }
 
-        h1 { margin: 0 }
-        p, article { margin: 0 0 20px 0 }
-        article { font-size: 14px; color: #777 }
-
-        label { color: blue; font-size: 17px }
-        p label { color: black; display: inline-block; width: 50px; font-size: 15px }
-        p { font-size: 15px; line-height: 30px }
-
-        input#text { width: 100%; box-sizing: border-box; font-size: 16px; margin-bottom: 10px }
-        input[type=range] { width: 200px; height: 18px; vertical-align: text-bottom }
-
-        canvas { box-sizing: border-box; width: 100%; border: 1px dashed #AAA; cursor: pointer }
-    </style>
+          </style>
+<body1>
+          <form class="input-form">
 </head>
     <div id="container">
-        <h1>图片水印打码工具</h1>
-        <article>安全地为你的图片加水印，无任何网络请求，特别适合各种敏感证件（身份证，驾照，护照等）。<a href="https://github.com/joyqi/sfz">Github地址</a></article>
+
+        <center><h1>图片水印打码工具</h1></center>
+
 
         <label for="image">第一步：先选择一张本地图片</label>
         <p><input type="file" id="image" autocomplete="off"></p>
 
-        
-        <label for="text">第二步：输入需要打水印的文字</label>
-        <p><input type="text" id="text" placeholder="请输入文字" autocomplete="off" maxlength="30">
-        
-        <label for="color">颜色</label>
-        <input type="color" id="color" pattern="#[0-9A-Fa-f]{6}" autocomplete="off" value="#0000FF"><br>
+
+      <div class="form-input-material">
+        <input type="text" name="text" placeholder=" " autocomplete="off" id="text" class="form-control-material" />
+        <label for="text">第二步：在此输入需要打印的文字</label>
+      </div>
+
+        <p><label for="color">颜色</label>
+        <input type="color" id="color" pattern="#[0-9A-Fa-f]{6}" autocomplete="off" value="#C0C0C0"><br><br>
+                 
         
         <label for="alpha">透明度</label>
-        <input type="range" id="alpha" min="0" max="1" step="0.05" autocomplete="off" value="0.15"><br>
+        <input type="range" class="form-control-range" id="alpha" min="0" max="1" step="0.05" autocomplete="off" value="0.75"><br><br>
+
         
         <label for="space">间隔</label>
-        <input type="range" id="space" min="1" max="8" step="0.2" autocomplete="off" value="4"><br>
+        <input type="range" class="form-control-range" id="space" min="1" max="8" step="0.2" autocomplete="off" value="4"><br><br>
         
         <label for="size">字号</label>
-        <input type="range" id="size" min="0.5" max="3" step="0.05" autocomplete="off" value="1">
+        <input type="range" class="form-control-range" id="size" min="0.5" max="3" step="0.05" autocomplete="off" value="1">
         </p>
         
         <label for="text">第三步：点击图片下载</label>
         <p id="graph"></p>
+
     </div>
-    <script src="./build/script.js"></script>
+        <script src="./build/script.js"></script>
+         </form>
+
+</body1>
+<center>
+  <a href="https://github.com/joyqi/sfz"><img src="https://cdn.jsdelivr.net/gh/Closty/duanwangzhi/github.png" style="width:50px;"> </a>
+</center>
 </html>
+
