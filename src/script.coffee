@@ -5,6 +5,8 @@ input = {}
 
 image = $ '#image'
 graph = $ '#graph'
+refresh = $ '#refresh'
+autoRefresh = $ '#auto-refresh'
 file = null
 canvas = null
 textCtx = null
@@ -118,6 +120,15 @@ image.addEventListener 'change', ->
 inputItems.forEach (item) ->
     el = $ '#' + item
     input[item] = el
+
+    autoRefresh.addEventListener 'change', ->
+        if @checked
+            refresh.setAttribute 'disabled', 'disabled'
+        else
+            refresh.removeAttribute 'disabled'
     
-    el.addEventListener 'input', drawText
+    el.addEventListener 'input', ->
+        drawText() if autoRefresh.checked
+
+    refresh.addEventListener 'click', drawText
 
