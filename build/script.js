@@ -6,7 +6,7 @@
     return document.querySelector(sel);
   };
 
-  inputItems = ['text', 'color', 'alpha', 'space', 'size'];
+  inputItems = ['text', 'color', 'alpha', 'angle', 'space', 'size'];
 
   input = {};
 
@@ -70,10 +70,8 @@
         ctx = canvas.getContext('2d');
         ctx.drawImage(img, 0, 0);
         redraw = function() {
-          ctx.rotate(315 * Math.PI / 180);
           ctx.clearRect(0, 0, canvas.width, canvas.height);
-          ctx.drawImage(img, 0, 0);
-          return ctx.rotate(45 * Math.PI / 180);
+          return ctx.drawImage(img, 0, 0);
         };
         drawText();
         graph.innerHTML = '';
@@ -104,7 +102,7 @@
   };
 
   drawText = function() {
-    var i, j, k, l, margin, ref, ref1, ref2, step, textSize, width, x, y;
+    var i, j, k, l, margin, ref, ref1, ref2, ref3, step, textSize, width, x, y;
     if (canvas == null) {
       return;
     }
@@ -113,8 +111,10 @@
       redraw();
     } else {
       textCtx = canvas.getContext('2d');
-      textCtx.rotate(45 * Math.PI / 180);
     }
+    textCtx.save();
+    textCtx.translate(canvas.width / 2, canvas.height / 2);
+    textCtx.rotate(input.angle.value * Math.PI / 180);
     textCtx.fillStyle = makeStyle();
     textCtx.font = 'bold ' + textSize + 'px -apple-system,"Helvetica Neue",Helvetica,Arial,"PingFang SC","Hiragino Sans GB","WenQuanYi Micro Hei",sans-serif';
     width = (textCtx.measureText(input.text.value)).width;
@@ -122,11 +122,12 @@
     margin = (textCtx.measureText('啊')).width;
     x = Math.ceil(step / (width + margin));
     y = Math.ceil((step / (input.space.value * textSize)) / 2);
-    for (i = k = 0, ref = x; (0 <= ref ? k <= ref : k >= ref); i = 0 <= ref ? ++k : --k) {
-      for (j = l = ref1 = -y, ref2 = y; (ref1 <= ref2 ? l <= ref2 : l >= ref2); j = ref1 <= ref2 ? ++l : --l) {
+    for (i = k = ref = -x, ref1 = x; (ref <= ref1 ? k <= ref1 : k >= ref1); i = ref <= ref1 ? ++k : --k) {
+      for (j = l = ref2 = -y, ref3 = y; (ref2 <= ref3 ? l <= ref3 : l >= ref3); j = ref2 <= ref3 ? ++l : --l) {
         textCtx.fillText(input.text.value, (width + margin) * i, input.space.value * textSize * j);
       }
     }
+    textCtx.restore();
   };
 
   image.addEventListener('change', function() {
