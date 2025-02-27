@@ -1,0 +1,15 @@
+{
+  "name": "sfz",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "cake build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "GPL-3.0-only",
+  "dependencies": {
+    "coffeescript": "^2.7.0"
+  }
+}

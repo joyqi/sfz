@@ -1,0 +1,31 @@
+name: Deploy to github pages
+
+on:   
+  push:
+    branches:
+      - master
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+      - name: Build 🏗
+        env:
+            STATS_SCRIPT: ${{ secrets.STATS_SCRIPT }}
+        run: |
+          pnpm install
+          pnpm build
+          sed -i "s|<!-- placeholder -->|$STATS_SCRIPT|g" public/index.html
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: gh-pages
+          folder: public
